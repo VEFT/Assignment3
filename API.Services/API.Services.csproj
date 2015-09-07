@@ -41,10 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Entities\Course.cs" />
+    <Compile Include="Entities\CourseStudent.cs" />
+    <Compile Include="Entities\CourseTemplate.cs" />
+    <Compile Include="Entities\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
