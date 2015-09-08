@@ -200,12 +200,23 @@ namespace Assignment2.Controllers
             }
         }
 
+        /// <summary>
+        /// todo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}/waitinglist")]
         public IHttpActionResult GetCourseWaitingList(int id)
         {
-            // todo
-            return null;
+            try
+            {
+                return Ok(_service.GetCourseWaitingList(id));
+            }
+            catch (AppObjectNotFoundException)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
 
         [HttpPost]
