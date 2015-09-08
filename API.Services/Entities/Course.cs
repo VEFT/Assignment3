@@ -1,5 +1,5 @@
 ﻿using System;
-//using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Services.Entities
 {
@@ -7,7 +7,7 @@ namespace API.Services.Entities
     /// This class represents a row containing a single course in
     /// the database table "Courses".
     /// </summary>
-    //[Table("Courses")]
+    [Table("Courses")]
     class Course
     {
         /// <summary>

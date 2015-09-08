@@ -1,10 +1,12 @@
-﻿namespace API.Services.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace API.Services.Entities
 {
     /// <summary>
     /// This class represents a row containing a single course template
     /// in the database table "CourseTemplates".
     /// </summary>
-    //[Table("CourseTemplates")]
+    [Table("CourseTemplates")]
     class CourseTemplate
     {
         /// <summary>

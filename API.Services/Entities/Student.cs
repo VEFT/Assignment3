@@ -1,11 +1,13 @@
-﻿namespace API.Services.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace API.Services.Entities
 {
     /// <summary>
     /// This class represents a row containing a single person in
     /// the database table "Persons".
     /// </summary>
-    //[Table("Persons")]
-    class Person
+    [Table("Students")]
+    class Student
     {
         /// <summary>
         /// Database generated unique identifier of the person.
