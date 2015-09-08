@@ -192,6 +192,15 @@ namespace API.Services
                 throw new AppObjectNotFoundException();
             }
 
+            var studentsInCourse = GetStudentsInCourse(id);
+            foreach (var s in studentsInCourse)
+            {
+                if(model.SSN == s.SSN)
+                {
+                    throw new AppObjectIllegalAddException();
+                }
+            }
+
             var courseStudent = new CourseStudent
             {
                 CourseID = course.ID,
