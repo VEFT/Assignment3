@@ -64,5 +64,11 @@ namespace API.Models.Courses
         /// Example: 12.
         /// </summary>
         public int StudentCount { get; set; }
+
+        /// <summary>
+        /// The maximum number of students that can be
+        /// enrolled in the course.
+        /// </summary>
+        public int MaxStudents { get; set; }
     }
 }
