@@ -199,5 +199,21 @@ namespace Assignment2.Controllers
                 return NotFound();
             }
         }
+
+        [HttpGet]
+        [Route("{id}/waitinglist")]
+        public IHttpActionResult GetCourseWaitingList(int id)
+        {
+            // todo
+            return null;
+        }
+
+        [HttpPost]
+        [Route("{id}/waitingList")]
+        public IHttpActionResult AddStudentToWaitingList(int id)
+        {
+            // todo
+            return null;
+        }
     }
 }
