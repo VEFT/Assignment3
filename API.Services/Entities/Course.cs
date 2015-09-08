@@ -42,5 +42,11 @@ namespace API.Services.Entities
         /// 3. "20153" -> fall 2015.
         /// </summary>
         public string Semester { get; set; }
+
+        /// <summary>
+        /// The maximum number of students that can be
+        /// enrolled in the course.
+        /// </summary>
+        public int MaxStudents { get; set; }
     }
 }
