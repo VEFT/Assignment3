@@ -312,6 +312,15 @@ namespace API.Services
                 throw new AppObjectNotFoundException();
             }
 
+            var studentsInWaitingList = GetCourseWaitingList(id);
+            foreach (var s in studentsInWaitingList)
+            {
+                if (model.SSN == s.SSN)
+                {
+                    throw new AppObjectIllegalAddException();
+                }
+            }
+
             var waitingList = new WaitingList
             {
                 CourseID = course.ID,
