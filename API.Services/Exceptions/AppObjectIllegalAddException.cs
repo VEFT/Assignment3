@@ -2,7 +2,7 @@
 
 namespace API.Services.Exceptions
 {
-    class AppObjectIllegalAddException : ApplicationException
+    public class AppObjectIllegalAddException : ApplicationException
     {
     }
 }

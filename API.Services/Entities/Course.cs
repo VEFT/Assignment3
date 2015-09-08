@@ -47,6 +47,6 @@ namespace API.Services.Entities
         /// The maximum number of students that can be
         /// enrolled in the course.
         /// </summary>
-        public int MaxStudents { get; set; }
+        public int? MaxStudents { get; set; }
     }
 }

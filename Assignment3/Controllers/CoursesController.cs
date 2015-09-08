@@ -147,6 +147,10 @@ namespace Assignment2.Controllers
                 {
                     return StatusCode(HttpStatusCode.NotFound);
                 }
+                catch(AppObjectIllegalAddException)
+                {
+                    return StatusCode(HttpStatusCode.PreconditionFailed);
+                }
             }
             else
             {
@@ -220,7 +224,7 @@ namespace Assignment2.Controllers
         }
 
         /// <summary>
-        /// 
+        /// todo
         /// </summary>
         /// <param name="id"></param>
         /// <param name="model"></param>
