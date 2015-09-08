@@ -55,6 +55,7 @@
     <Compile Include="Entities\Student.cs" />
     <Compile Include="Entities\WaitingList.cs" />
     <Compile Include="Exceptions\AppInternalServerException.cs" />
+    <Compile Include="Exceptions\AppMaxReachedException.cs" />
     <Compile Include="Exceptions\AppObjectIllegalAddException.cs" />
     <Compile Include="Exceptions\AppObjectNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

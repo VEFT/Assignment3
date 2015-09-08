@@ -7,6 +7,7 @@ using API.Models.Course.Students;
 using API.Services.Exceptions;
 using API.Models.Courses;
 using API.Models.Courses.Students;
+using System.Net.Http;
 
 namespace Assignment2.Controllers
 {
@@ -147,7 +148,11 @@ namespace Assignment2.Controllers
                 {
                     return StatusCode(HttpStatusCode.NotFound);
                 }
-                catch(AppObjectIllegalAddException)
+                catch (AppObjectIllegalAddException)
+                {
+                    return StatusCode(HttpStatusCode.PreconditionFailed);
+                }
+                catch(AppMaxReachedException)
                 {
                     return StatusCode(HttpStatusCode.PreconditionFailed);
                 }

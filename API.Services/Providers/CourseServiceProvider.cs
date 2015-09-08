@@ -201,6 +201,11 @@ namespace API.Services
                 }
             }
 
+            if(course.MaxStudents <= studentsInCourse.Count)
+            {
+                throw new AppMaxReachedException();
+            }
+
             var courseStudent = new CourseStudent
             {
                 CourseID = course.ID,
