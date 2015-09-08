@@ -200,20 +200,52 @@ namespace Assignment2.Controllers
             }
         }
 
+        /// <summary>
+        /// todo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}/waitinglist")]
         public IHttpActionResult GetCourseWaitingList(int id)
         {
-            // todo
-            return null;
+            try
+            {
+                return Ok(_service.GetCourseWaitingList(id));
+            }
+            catch (AppObjectNotFoundException)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("{id}/waitingList")]
-        public IHttpActionResult AddStudentToWaitingList(int id)
+        public IHttpActionResult AddStudentToWaitingList(int id, AddStudentViewModel model)
         {
-            // todo
-            return null;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var result = _service.AddStudentToWaitingList(id, model);
+                    var waitingList = _service.GetCourseWaitingList(id);
+                    return Ok(waitingList);
+                }
+                catch (AppObjectNotFoundException)
+                {
+                    return StatusCode(HttpStatusCode.NotFound);
+                }
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.PreconditionFailed);
+            }
         }
     }
 }

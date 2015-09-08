@@ -9,5 +9,6 @@ namespace API.Services.Repositories
         public DbSet<CourseTemplate> CourseTemplates { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<CourseStudent> CourseStudents { get; set; }
+        public DbSet<WaitingList> WaitingLists { get; set; }
     }
 }

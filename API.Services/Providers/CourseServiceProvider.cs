@@ -261,5 +261,68 @@ namespace API.Services
             _db.Courses.Remove(course);
             _db.SaveChanges();
         }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public List<StudentDTO> GetCourseWaitingList(int id)
+        {
+            var course = _db.Courses.SingleOrDefault(x => x.ID == id);
+            if(course == null)
+            {
+                throw new AppObjectNotFoundException();
+            }
+
+            var result = (from wl in _db.WaitingLists
+                          join s in _db.Students on wl.StudentID equals s.ID
+                          where wl.CourseID == course.ID
+                          select new StudentDTO
+                          {
+                              Name = s.Name,
+                              SSN = s.SSN
+                          }).ToList();
+
+            return result;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public StudentDTO AddStudentToWaitingList(int id, AddStudentViewModel model)
+        {
+            var course = _db.Courses.SingleOrDefault(x => x.ID == id);
+            if (course == null)
+            {
+                throw new AppObjectNotFoundException();
+            }
+
+            var student = _db.Students.SingleOrDefault(x => x.SSN == model.SSN);
+            if (student == null)
+            {
+                throw new AppObjectNotFoundException();
+            }
+
+            var waitingList = new WaitingList
+            {
+                CourseID = course.ID,
+                StudentID = student.ID
+            };
+
+            _db.WaitingLists.Add(waitingList);
+            _db.SaveChanges();
+
+            var result = new StudentDTO
+            {
+                Name = student.Name,
+                SSN = student.SSN
+            };
+
+            return result;
+        }
     }
 }
