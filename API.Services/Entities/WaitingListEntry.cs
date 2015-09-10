@@ -3,10 +3,12 @@
 namespace API.Services.Entities
 {
     /// <summary>
-    /// todo
+    /// This class represent a single row in the database table
+    /// "WaitingListEntries". A single row represents one instance of
+    /// a student on a waiting list for a specific course.
     /// </summary>
-    [Table("WaitingLists")]
-    class WaitingList
+    [Table("WaitingListEntries")]
+    class WaitingListEntry
     {
         /// <summary>
         /// Database generated unique identifier of the waiting list.
@@ -22,7 +24,7 @@ namespace API.Services.Entities
 
         /// <summary>
         /// The database-generated ID of the person which is registered
-        /// in the course. 
+        /// in the waiting list of the course. 
         /// Example: 28
         /// </summary>
         public int StudentID { get; set; }

@@ -53,7 +53,7 @@
     <Compile Include="Entities\CourseStudent.cs" />
     <Compile Include="Entities\CourseTemplate.cs" />
     <Compile Include="Entities\Student.cs" />
-    <Compile Include="Entities\WaitingList.cs" />
+    <Compile Include="Entities\WaitingListEntry.cs" />
     <Compile Include="Exceptions\AppInternalServerException.cs" />
     <Compile Include="Exceptions\AppMaxReachedException.cs" />
     <Compile Include="Exceptions\AppObjectIllegalAddException.cs" />
