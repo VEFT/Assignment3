@@ -256,8 +256,8 @@ namespace API.Services
                 throw new AppObjectNotFoundException();
             }
 
-            var studentsInCourse = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID && x.IsActive == true);
-            if(studentsInCourse != null)
+            var studentInCourse = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID && x.IsActive == true);
+            if(studentInCourse != null)
             {
                 throw new AppObjectIllegalAddException();
             }
@@ -271,12 +271,15 @@ namespace API.Services
             if(studentInWaitingList != null)
             {
                 _db.WaitingLists.Remove(studentInWaitingList);
-                _db.SaveChanges();
             }
 
             var tmp = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID && x.IsActive == false);
 
-            if(tmp == null)
+            if(tmp != null)
+            {
+                tmp.IsActive = true;
+            }
+            else
             {
                 var courseStudent = new CourseStudent
                 {
@@ -284,24 +287,8 @@ namespace API.Services
                     StudentID = student.ID,
                     IsActive = true
                 };
-
                 _db.CourseStudents.Add(courseStudent);
             }
-            else
-            {
-                tmp.IsActive = true;
-            }
-
-            /*
-            var courseStudent = new CourseStudent
-            {
-                CourseID = course.ID,
-                StudentID = student.ID,
-                IsActive = true
-            };
-
-            _db.CourseStudents.Add(courseStudent);
-            */
 
             _db.SaveChanges();
 
@@ -312,6 +299,11 @@ namespace API.Services
             };
 
             return result;
+        }
+
+        public StudentDTO GetStudentInCourse(int id, string SSN)
+        {
+            return null;
         }
 
         /// <summary>

@@ -124,6 +124,20 @@ namespace Assignment2.Controllers
         }
 
         /// <summary>
+        /// todo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="SSN"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}/students/{SSN}", Name = "GetStudentInCourse")]
+        [ResponseType(typeof(StudentDTO))]
+        public IHttpActionResult GetStudentInCourse(int id, string SSN)
+        {
+            return Ok(_service.GetStudentInCourse(id, SSN)); ;
+        }
+
+        /// <summary>
         /// Mehod that adds a student to a course with a givin ID.
         /// The attributes needed to add a student to a course are given with 
         /// a view model class.
@@ -141,8 +155,8 @@ namespace Assignment2.Controllers
                 try
                 {
                     var result = _service.AddStudentToCourse(id, model);
-                    var students = _service.GetStudentsInCourse(id);
-                    return Ok(students);
+                    var location = Url.Link("GetStudentInCourse", new { id = id, SSN = result.SSN });
+                    return Created(location, result);
                 }
                 catch (AppObjectNotFoundException)
                 {
