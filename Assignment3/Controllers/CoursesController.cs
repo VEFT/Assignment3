@@ -14,7 +14,7 @@ namespace Assignment2.Controllers
     /// <summary>
     /// This controller handles all HTTP functionality and
     /// communication with the course provider.
-    /// The only functionality that does not concern HTTP
+    /// The only functionality here that does not concern HTTP
     /// is validation.
     /// </summary>
     [RoutePrefix("api/courses")]
@@ -71,11 +71,10 @@ namespace Assignment2.Controllers
             {
                 return InternalServerError();
             }
-
         }
 
         /// <summary>
-        /// Method that takes in a ID of a course and returns a list of
+        /// Method that takes in an ID of a course and returns a list of
         /// students in that course.
         /// </summary>
         /// <param name="id">ID of the course</param>
@@ -117,18 +116,18 @@ namespace Assignment2.Controllers
                 {
                     return StatusCode(HttpStatusCode.InternalServerError);
                 }
-
             }
 
             return StatusCode(HttpStatusCode.PreconditionFailed);
         }
 
         /// <summary>
-        /// todo
+        /// Method that gets a student in a course based on the
+        /// id of the course and the SSN of the student.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="SSN"></param>
-        /// <returns></returns>
+        /// <param name="id">ID of the course</param>
+        /// <param name="SSN">SSN of the student</param>
+        /// <returns>A 200 status code if everything was ok, along with the student</returns>
         [HttpGet]
         [Route("{id}/students/{SSN}", Name = "GetStudentInCourse")]
         [ResponseType(typeof(StudentDTO))]
