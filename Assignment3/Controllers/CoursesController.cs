@@ -275,9 +275,10 @@ namespace Assignment2.Controllers
         /// <summary>
         /// A method that adds a given student to a waiting list of a course
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="id">ID of the course</param>
+        /// <param name="model">Add student view model (ViewModel class)</param>
+        /// <returns>A 200 status code along with the updated waiting list
+        /// (i.e. with the new student added to it) if everything was ok.</returns>
         [HttpPost]
         [Route("{id}/waitingList")]
         [ResponseType(typeof(List<StudentDTO>))]
