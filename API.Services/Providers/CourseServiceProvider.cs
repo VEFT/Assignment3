@@ -250,13 +250,8 @@ namespace API.Services
         public StudentDTO AddStudentToCourse(int id, AddStudentViewModel model)
         {
             var course = _db.Courses.SingleOrDefault(x => x.ID == id);
-            if (course == null)
-            {
-                throw new AppObjectNotFoundException();
-            }
-
             var student = _db.Students.SingleOrDefault(x => x.SSN == model.SSN);
-            if (student == null)
+            if (course == null || student == null)
             {
                 throw new AppObjectNotFoundException();
             }
