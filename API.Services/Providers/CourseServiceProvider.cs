@@ -93,7 +93,7 @@ namespace API.Services
         }
 
         /// <summary>
-        /// Method that updates a course with a givin ID.
+        /// Method that updates a course with a given ID.
         /// The attributes that are updated are given with a view model class.
         /// </summary>
         /// <param name="id">ID of the course</param>
@@ -172,7 +172,7 @@ namespace API.Services
         }
 
         /// <summary>
-        /// Method that takes in a ID of a course and returns a list of
+        /// Method that takes in an ID of a course and returns a list of
         /// students in that course.
         /// </summary>
         /// <param name="id">ID of the course</param>
@@ -198,7 +198,7 @@ namespace API.Services
         }
 
         /// <summary>
-        /// Method that takes in a ID of a course and deletes the course
+        /// Method that takes in an ID of a course and deletes the course
         /// from the database.
         /// </summary>
         /// <param name="id">ID of the course</param>
@@ -241,7 +241,7 @@ namespace API.Services
         }
 
         /// <summary>
-        /// Mehod that adds a student to a course with a givin ID.
+        /// Method that adds a student to a course with a given ID.
         /// The attributes needed to add a student to a course are given with 
         /// a view model class.
         /// </summary>
@@ -330,7 +330,7 @@ namespace API.Services
 
         /// <summary>
         /// Method that removes a student with a given SSN
-        /// in a course withe a given ID.
+        /// in a course with a given ID.
         /// </summary>
         /// <param name="id">ID of the course</param>
         /// <param name="SSN">SSN of the student</param>
@@ -350,7 +350,7 @@ namespace API.Services
 
         /// <summary>
         /// Mehod that adds a student to the waiting list of a course 
-        /// with a givin ID. The attributes needed to add a student to  
+        /// with a given ID. The attributes needed to add a student to  
         /// the waiting list are given with a view model class.
         /// </summary>
         /// <param name="id">ID of the course</param>
