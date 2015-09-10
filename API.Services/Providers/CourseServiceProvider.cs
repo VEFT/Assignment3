@@ -153,7 +153,8 @@ namespace API.Services
                 TemplateID = model.TemplateID,
                 StartDate = model.StartDate,
                 EndDate = model.EndDate,
-                Semester = model.Semester
+                Semester = model.Semester,
+                MaxStudents = model.MaxStudents
             };
 
             _db.Courses.Add(course);
@@ -165,60 +166,6 @@ namespace API.Services
                 Name = course.TemplateID,
                 StartDate = course.StartDate,
                 StudentCount = 0
-            };
-
-            return result;
-        }
-
-        /// <summary>
-        /// Mehod that adds a student to a course with a givin ID.
-        /// The attributes needed to add a student to a course are given with 
-        /// a view model class.
-        /// </summary>
-        /// <param name="id">ID of the course</param>
-        /// <param name="model">Student view model (ViewModel class)</param>
-        /// <returns></returns>
-        public StudentDTO AddStudentToCourse(int id, AddStudentViewModel model)
-        {
-            var course = _db.Courses.SingleOrDefault(x => x.ID == id);
-            if (course == null)
-            {
-                throw new AppObjectNotFoundException();
-            }
-
-            var student = _db.Students.SingleOrDefault(x => x.SSN == model.SSN);
-            if (student == null)
-            {
-                throw new AppObjectNotFoundException();
-            }
-
-            var studentsInCourse = GetStudentsInCourse(id);
-            foreach (var s in studentsInCourse)
-            {
-                if(model.SSN == s.SSN)
-                {
-                    throw new AppObjectIllegalAddException();
-                }
-            }
-
-            if(course.MaxStudents <= studentsInCourse.Count)
-            {
-                throw new AppMaxReachedException();
-            }
-
-            var courseStudent = new CourseStudent
-            {
-                CourseID = course.ID,
-                StudentID = student.ID
-            };
-
-            _db.CourseStudents.Add(courseStudent);
-            _db.SaveChanges();
-
-            var result = new StudentDTO
-            {
-                Name = student.Name,
-                SSN = student.SSN
             };
 
             return result;
@@ -293,6 +240,63 @@ namespace API.Services
         }
 
         /// <summary>
+        /// Mehod that adds a student to a course with a givin ID.
+        /// The attributes needed to add a student to a course are given with 
+        /// a view model class.
+        /// </summary>
+        /// <param name="id">ID of the course</param>
+        /// <param name="model">Student view model (ViewModel class)</param>
+        /// <returns></returns>
+        public StudentDTO AddStudentToCourse(int id, AddStudentViewModel model)
+        {
+            var course = _db.Courses.SingleOrDefault(x => x.ID == id);
+            if (course == null)
+            {
+                throw new AppObjectNotFoundException();
+            }
+
+            var student = _db.Students.SingleOrDefault(x => x.SSN == model.SSN);
+            if (student == null)
+            {
+                throw new AppObjectNotFoundException();
+            }
+
+            var studentsInCourse = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID);
+            if(studentsInCourse != null)
+            {
+                throw new AppObjectIllegalAddException();
+            }
+
+            if (course.MaxStudents <= GetStudentsInCourse(id).Count)
+            {
+                throw new AppMaxReachedException();
+            }
+
+            var studentInWaitingList = _db.WaitingLists.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID);
+            if(studentInWaitingList != null)
+            {
+                _db.WaitingLists.Remove(studentInWaitingList);
+            }
+
+            var courseStudent = new CourseStudent
+            {
+                CourseID = course.ID,
+                StudentID = student.ID
+            };
+
+            _db.CourseStudents.Add(courseStudent);
+            _db.SaveChanges();
+
+            var result = new StudentDTO
+            {
+                Name = student.Name,
+                SSN = student.SSN
+            };
+
+            return result;
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         /// <param name="id"></param>
@@ -312,13 +316,11 @@ namespace API.Services
                 throw new AppObjectNotFoundException();
             }
 
-            var studentsInWaitingList = GetCourseWaitingList(id);
-            foreach (var s in studentsInWaitingList)
+            var studentsInCourse = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID);
+            var studentInWaitingList = _db.WaitingLists.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID);
+            if (studentsInCourse != null || studentInWaitingList != null)
             {
-                if (model.SSN == s.SSN)
-                {
-                    throw new AppObjectIllegalAddException();
-                }
+                throw new AppObjectIllegalAddException();
             }
 
             var waitingList = new WaitingList
