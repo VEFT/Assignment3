@@ -133,7 +133,14 @@ namespace Assignment2.Controllers
         [ResponseType(typeof(StudentDTO))]
         public IHttpActionResult GetStudentInCourse(int id, string SSN)
         {
-            return Ok(_service.GetStudentInCourse(id, SSN)); ;
+            try
+            {
+                return Ok(_service.GetStudentInCourse(id, SSN));
+            }
+            catch (AppObjectNotFoundException)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
 
         /// <summary>
