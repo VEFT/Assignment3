@@ -210,6 +210,27 @@ namespace Assignment2.Controllers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("{id}/students/{SSN}")]
+        public IHttpActionResult RemoveStudentFromCourse(int id, string SSN)
+        {
+            try
+            {
+                _service.RemoveStudentFromCourse(id, SSN);
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            catch(AppObjectNotFoundException)
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         /// <param name="id"></param>

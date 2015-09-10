@@ -187,7 +187,7 @@ namespace API.Services
 
             var result = (from cs in _db.CourseStudents
                           join s in _db.Students on cs.StudentID equals s.ID
-                          where cs.CourseID == course.ID
+                          where cs.CourseID == course.ID && cs.IsActive == true
                           select new StudentDTO
                           {
                               Name = s.Name,
@@ -261,7 +261,7 @@ namespace API.Services
                 throw new AppObjectNotFoundException();
             }
 
-            var studentsInCourse = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID);
+            var studentsInCourse = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID && x.IsActive == true);
             if(studentsInCourse != null)
             {
                 throw new AppObjectIllegalAddException();
@@ -279,14 +279,35 @@ namespace API.Services
                 _db.SaveChanges();
             }
 
+            var tmp = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID && x.IsActive == false);
+
+            if(tmp == null)
+            {
+                var courseStudent = new CourseStudent
+                {
+                    CourseID = course.ID,
+                    StudentID = student.ID,
+                    IsActive = true
+                };
+
+                _db.CourseStudents.Add(courseStudent);
+            }
+            else
+            {
+                tmp.IsActive = true;
+            }
+
+            /*
             var courseStudent = new CourseStudent
             {
                 CourseID = course.ID,
                 StudentID = student.ID,
-                //IsAcitve = 1
+                IsActive = true
             };
 
             _db.CourseStudents.Add(courseStudent);
+            */
+
             _db.SaveChanges();
 
             var result = new StudentDTO
@@ -296,6 +317,35 @@ namespace API.Services
             };
 
             return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        public void RemoveStudentFromCourse(int id, string SSN)
+        {
+            var course = _db.Courses.SingleOrDefault(x => x.ID == id);
+            if (course == null)
+            {
+                throw new AppObjectNotFoundException();
+            }
+
+            var student = _db.Students.SingleOrDefault(x => x.SSN == SSN);
+            if (student == null)
+            {
+                throw new AppObjectNotFoundException();
+            }
+
+            var courseStudent = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID && x.IsActive == true);
+            if(courseStudent == null)
+            {
+                throw new AppObjectNotFoundException();
+            }
+
+            courseStudent.IsActive = false;
+            _db.SaveChanges();
         }
 
         /// <summary>
