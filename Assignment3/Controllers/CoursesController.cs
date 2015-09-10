@@ -102,6 +102,7 @@ namespace Assignment2.Controllers
         /// <returns>201 status code if everything was ok, along with the location and content of the course</returns>
         [HttpPost]
         [Route("")]
+        [ResponseType(typeof(CourseDTO))]
         public IHttpActionResult CreateCourse(AddCourseViewModel model)
         {
             if (ModelState.IsValid)
@@ -258,6 +259,7 @@ namespace Assignment2.Controllers
         /// <returns>A 200 status code if everything was ok along with the waitinglist of the course</returns>
         [HttpGet]
         [Route("{id}/waitinglist")]
+        [ResponseType(typeof(List<StudentDTO>))]
         public IHttpActionResult GetCourseWaitingList(int id)
         {
             try
@@ -278,6 +280,7 @@ namespace Assignment2.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("{id}/waitingList")]
+        [ResponseType(typeof(List<StudentDTO>))]
         public IHttpActionResult AddStudentToWaitingList(int id, AddStudentViewModel model)
         {
             if (ModelState.IsValid)
