@@ -276,12 +276,14 @@ namespace API.Services
             if(studentInWaitingList != null)
             {
                 _db.WaitingLists.Remove(studentInWaitingList);
+                _db.SaveChanges();
             }
 
             var courseStudent = new CourseStudent
             {
                 CourseID = course.ID,
-                StudentID = student.ID
+                StudentID = student.ID,
+                //IsAcitve = 1
             };
 
             _db.CourseStudents.Add(courseStudent);

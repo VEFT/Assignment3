@@ -250,6 +250,10 @@ namespace Assignment2.Controllers
                 {
                     return StatusCode(HttpStatusCode.NotFound);
                 }
+                catch(AppObjectIllegalAddException)
+                {
+                    return StatusCode(HttpStatusCode.PreconditionFailed);
+                }
             }
             else
             {
