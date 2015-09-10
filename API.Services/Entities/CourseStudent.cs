@@ -4,7 +4,8 @@ namespace API.Services.Entities
 {
     /// <summary>
     /// This class represent a single row in the database table
-    /// "CourseStudents".
+    /// "CourseStudents". A single row represents one enrollement
+    /// for a specific student in a specific course.
     /// The purpose having this class is to connect the "Courses"
     /// and "Persons" tables.
     /// </summary>
@@ -31,7 +32,10 @@ namespace API.Services.Entities
         public int StudentID { get; set; }
 
         /// <summary>
-        /// todo
+        /// Boolean flag that tells us wether the student is active
+        /// in the course or not.
+        ///     True => The student is active.
+        ///     False => The studne is NOT active.
         /// </summary>
         public bool IsActive { get; set; }
     }

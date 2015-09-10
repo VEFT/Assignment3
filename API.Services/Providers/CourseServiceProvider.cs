@@ -372,7 +372,7 @@ namespace API.Services
                 throw new AppObjectIllegalAddException();
             }
 
-            var waitingList = new WaitingList
+            var waitingList = new WaitingListEntry
             {
                 CourseID = course.ID,
                 StudentID = student.ID
