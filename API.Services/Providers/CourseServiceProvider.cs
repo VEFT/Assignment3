@@ -215,10 +215,11 @@ namespace API.Services
         }
 
         /// <summary>
-        /// todo
+        /// Method that gets the waiting list of a course with a
+        /// given ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">ID of the course</param>
+        /// <returns>A list of students (DTO class)</returns>
         public List<StudentDTO> GetCourseWaitingList(int id)
         {
             var course = _db.Courses.SingleOrDefault(x => x.ID == id);
@@ -245,8 +246,8 @@ namespace API.Services
         /// a view model class.
         /// </summary>
         /// <param name="id">ID of the course</param>
-        /// <param name="model">Student view model (ViewModel class)</param>
-        /// <returns></returns>
+        /// <param name="model">Add student view model (ViewModel class)</param>
+        /// <returns>The student that was added to the course (DTO class)</returns>
         public StudentDTO AddStudentToCourse(int id, AddStudentViewModel model)
         {
             var course = _db.Courses.SingleOrDefault(x => x.ID == id);
@@ -302,11 +303,12 @@ namespace API.Services
         }
 
         /// <summary>
-        /// 
+        /// Method that returns a student with a given SSN in a
+        /// course with a given ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="SSN"></param>
-        /// <returns></returns>
+        /// <param name="id">ID of the course</param>
+        /// <param name="SSN">SSN of the student</param>
+        /// <returns>Single student (DTO class)</returns>
         public StudentDTO GetStudentInCourse(int id, string SSN)
         {
             var course = _db.Courses.SingleOrDefault(x => x.ID == id);
@@ -327,10 +329,11 @@ namespace API.Services
         }
 
         /// <summary>
-        /// 
+        /// Method that removes a student with a given SSN
+        /// in a course withe a given ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="model"></param>
+        /// <param name="id">ID of the course</param>
+        /// <param name="SSN">SSN of the student</param>
         public void RemoveStudentFromCourse(int id, string SSN)
         {
             var course = _db.Courses.SingleOrDefault(x => x.ID == id);
@@ -346,11 +349,13 @@ namespace API.Services
         }
 
         /// <summary>
-        /// todo
+        /// Mehod that adds a student to the waiting list of a course 
+        /// with a givin ID. The attributes needed to add a student to  
+        /// the waiting list are given with a view model class.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="id">ID of the course</param>
+        /// <param name="model">Add student view model (ViewModel class)</param>
+        /// <returns>The student that was added to the waiting list (DTO class)</returns>
         public StudentDTO AddStudentToWaitingList(int id, AddStudentViewModel model)
         {
             var course = _db.Courses.SingleOrDefault(x => x.ID == id);
