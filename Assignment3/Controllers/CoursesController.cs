@@ -144,13 +144,14 @@ namespace Assignment2.Controllers
         }
 
         /// <summary>
-        /// Mehod that adds a student to a course with a givin ID.
+        /// Mehod that adds a student to a course with a given ID.
         /// The attributes needed to add a student to a course are given with 
         /// a view model class.
         /// </summary>
         /// <param name="id">ID of the course</param>
         /// <param name="model">Student view model (ViewModel class)</param>
-        /// <returns></returns>
+        /// <returns>A 201 status code if everything was OK, 
+        /// along with the location and content of the student added to the course</returns>
         [HttpPost]
         [Route("{id}/students")]
         [ResponseType(typeof(StudentDTO))]
@@ -184,12 +185,12 @@ namespace Assignment2.Controllers
         }
 
         /// <summary>
-        /// Method that updates a course with a givin ID.
+        /// Method that updates a course with a given ID.
         /// The attributes that are updated are given with a view model class.
         /// </summary>
         /// <param name="id">ID of the course</param>
         /// <param name="model">Update course view model (ViewModel class)</param>
-        /// <returns>The updated course (DTO class)</returns>
+        /// <returns>A 200 status code if everything was ok along the updated course (DTO class)</returns>
         [HttpPut]
         [Route("{id}")]
         [ResponseType(typeof(CourseDTO))]
@@ -210,7 +211,7 @@ namespace Assignment2.Controllers
         }
 
         /// <summary>
-        /// Method that takes in a ID of a course and deletes the course
+        /// Method that takes in an ID of a course and deletes the course
         /// </summary>
         /// <param name="id">ID of the course</param>
         /// <returns>204 status code if everything was ok</returns>
@@ -230,11 +231,11 @@ namespace Assignment2.Controllers
         }
 
         /// <summary>
-        /// 
+        /// A method that removes a student from a course.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="id">ID of the course</param>
+        /// <param name="SSN">SSN of the student to be removed from the course</param>
+        /// <returns>A 204 status code if everything was ok.</returns>
         [HttpDelete]
         [Route("{id}/students/{SSN}")]
         public IHttpActionResult RemoveStudentFromCourse(int id, string SSN)
@@ -251,10 +252,10 @@ namespace Assignment2.Controllers
         }
 
         /// <summary>
-        /// todo
+        /// A method that returns the waitinglist of a course.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">ID of the course</param>
+        /// <returns>A 200 status code if everything was ok along with the waitinglist of the course</returns>
         [HttpGet]
         [Route("{id}/waitinglist")]
         public IHttpActionResult GetCourseWaitingList(int id)
