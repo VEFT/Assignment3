@@ -273,21 +273,21 @@ namespace API.Services
                 _db.WaitingLists.Remove(studentInWaitingList);
             }
 
-            var tmp = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID && x.IsActive == false);
+            var courseStudent = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID && x.IsActive == false);
 
-            if(tmp != null)
+            if(courseStudent != null)
             {
-                tmp.IsActive = true;
+                courseStudent.IsActive = true;
             }
             else
             {
-                var courseStudent = new CourseStudent
+                var newCourseStudent = new CourseStudent
                 {
                     CourseID = course.ID,
                     StudentID = student.ID,
                     IsActive = true
                 };
-                _db.CourseStudents.Add(courseStudent);
+                _db.CourseStudents.Add(newCourseStudent);
             }
 
             _db.SaveChanges();
@@ -301,9 +301,29 @@ namespace API.Services
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="SSN"></param>
+        /// <returns></returns>
         public StudentDTO GetStudentInCourse(int id, string SSN)
         {
-            return null;
+            var course = _db.Courses.SingleOrDefault(x => x.ID == id);
+            var student = _db.Students.SingleOrDefault(x => x.SSN == SSN);
+            var courseStudent = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID && x.IsActive == true);
+            if (course == null || student == null || courseStudent == null)
+            {
+                throw new AppObjectNotFoundException();
+            }
+
+            var result = new StudentDTO
+            {
+                Name = student.Name,
+                SSN = student.SSN
+            };
+
+            return result;
         }
 
         /// <summary>
@@ -314,19 +334,9 @@ namespace API.Services
         public void RemoveStudentFromCourse(int id, string SSN)
         {
             var course = _db.Courses.SingleOrDefault(x => x.ID == id);
-            if (course == null)
-            {
-                throw new AppObjectNotFoundException();
-            }
-
             var student = _db.Students.SingleOrDefault(x => x.SSN == SSN);
-            if (student == null)
-            {
-                throw new AppObjectNotFoundException();
-            }
-
             var courseStudent = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID && x.IsActive == true);
-            if(courseStudent == null)
+            if (course == null || student == null || courseStudent == null)
             {
                 throw new AppObjectNotFoundException();
             }
@@ -344,13 +354,8 @@ namespace API.Services
         public StudentDTO AddStudentToWaitingList(int id, AddStudentViewModel model)
         {
             var course = _db.Courses.SingleOrDefault(x => x.ID == id);
-            if (course == null)
-            {
-                throw new AppObjectNotFoundException();
-            }
-
             var student = _db.Students.SingleOrDefault(x => x.SSN == model.SSN);
-            if (student == null)
+            if (course == null || student == null)
             {
                 throw new AppObjectNotFoundException();
             }
