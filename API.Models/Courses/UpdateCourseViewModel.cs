@@ -5,6 +5,10 @@ namespace API.Models.Courses
 {
     /// <summary>
     /// This class represents the data needed to update a course.
+    /// The attributes that are required to update a instance are:
+    ///     1. StartDate
+    ///     2. EndDate
+    ///     3. MaxStudents
     /// </summary>
     public class UpdateCourseViewModel
     {

@@ -11,6 +11,7 @@ namespace API.Models.Courses
     ///     2. Semester
     ///     3. StartDate
     ///     4. EndDate
+    ///     5. MaxStudents
     /// </summary>
     public class AddCourseViewModel
     {
