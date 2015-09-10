@@ -271,7 +271,7 @@ namespace Assignment2.Controllers
         }
 
         /// <summary>
-        /// todo
+        /// A method that adds a given student to a waiting list of a course
         /// </summary>
         /// <param name="id"></param>
         /// <param name="model"></param>
