@@ -289,8 +289,7 @@ namespace Assignment2.Controllers
                 try
                 {
                     var result = _service.AddStudentToWaitingList(id, model);
-                    var waitingList = _service.GetCourseWaitingList(id);
-                    return Ok(waitingList);
+                    return Ok(result);
                 }
                 catch (AppObjectNotFoundException)
                 {

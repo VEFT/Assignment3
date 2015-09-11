@@ -356,7 +356,7 @@ namespace API.Services
         /// <param name="id">ID of the course</param>
         /// <param name="model">Add student view model (ViewModel class)</param>
         /// <returns>The student that was added to the waiting list (DTO class)</returns>
-        public StudentDTO AddStudentToWaitingList(int id, AddStudentViewModel model)
+        public List<StudentDTO> AddStudentToWaitingList(int id, AddStudentViewModel model)
         {
             var course = _db.Courses.SingleOrDefault(x => x.ID == id);
             var student = _db.Students.SingleOrDefault(x => x.SSN == model.SSN);
@@ -365,7 +365,7 @@ namespace API.Services
                 throw new AppObjectNotFoundException();
             }
 
-            var studentsInCourse = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID);
+            var studentsInCourse = _db.CourseStudents.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID && x.IsActive == true);
             var studentInWaitingList = _db.WaitingLists.SingleOrDefault(x => x.CourseID == id && x.StudentID == student.ID);
             if (studentsInCourse != null || studentInWaitingList != null)
             {
@@ -381,11 +381,7 @@ namespace API.Services
             _db.WaitingLists.Add(waitingList);
             _db.SaveChanges();
 
-            var result = new StudentDTO
-            {
-                Name = student.Name,
-                SSN = student.SSN
-            };
+            var result = GetCourseWaitingList(id);
 
             return result;
         }
