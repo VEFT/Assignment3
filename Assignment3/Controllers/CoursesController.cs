@@ -16,6 +16,7 @@ namespace Assignment2.Controllers
     /// communication with the course provider.
     /// The only functionality here that does not concern HTTP
     /// is validation.
+    /// 
     /// </summary>
     [RoutePrefix("api/courses")]
     public class CoursesController : ApiController
