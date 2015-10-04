@@ -16,9 +16,9 @@ namespace Assignment2.Controllers
     /// communication with the course provider.
     /// The only functionality here that does not concern HTTP
     /// is validation.
-    /// 
     /// </summary>
     [RoutePrefix("api/courses")]
+    [Authorize]
     public class CoursesController : ApiController
     {
         /// <summary>
@@ -45,7 +45,7 @@ namespace Assignment2.Controllers
         [HttpGet]
         [Route("")]
         [ResponseType(typeof(List<CourseDTO>))]
-        [Authorize]
+        [AllowAnonymous]
         public IHttpActionResult GetCourses(string semester = null)
         {
             return Ok(_service.GetCoursesBySemester(semester));
