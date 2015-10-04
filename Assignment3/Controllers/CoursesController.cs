@@ -44,6 +44,7 @@ namespace Assignment2.Controllers
         [HttpGet]
         [Route("")]
         [ResponseType(typeof(List<CourseDTO>))]
+        [Authorize]
         public IHttpActionResult GetCourses(string semester = null)
         {
             return Ok(_service.GetCoursesBySemester(semester));
