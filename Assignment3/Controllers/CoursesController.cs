@@ -45,6 +45,7 @@ namespace Assignment2.Controllers
         [HttpGet]
         [Route("")]
         [ResponseType(typeof(List<CourseDTO>))]
+        [Authorize]
         public IHttpActionResult GetCourses(string semester = null)
         {
             return Ok(_service.GetCoursesBySemester(semester));
@@ -75,27 +76,6 @@ namespace Assignment2.Controllers
         }
 
         /// <summary>
-        /// Method that takes in an ID of a course and returns a list of
-        /// students in that course.
-        /// </summary>
-        /// <param name="id">ID of the course</param>
-        /// <returns>List of students (DTO class)</returns>
-        [HttpGet]
-        [Route("{id}/students")]
-        [ResponseType(typeof(List<StudentDTO>))]
-        public IHttpActionResult GetStudentsInCourse(int id)
-        {
-            try
-            {
-                return Ok(_service.GetStudentsInCourse(id));
-            }
-            catch (AppObjectNotFoundException)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-        }
-
-        /// <summary>
         /// Method that creates a new course.
         /// The attributes needed to add a new course are given with a view model class.
         /// </summary>
@@ -121,6 +101,27 @@ namespace Assignment2.Controllers
             }
 
             return StatusCode(HttpStatusCode.PreconditionFailed);
+        }
+
+        /// <summary>
+        /// Method that takes in an ID of a course and returns a list of
+        /// students in that course.
+        /// </summary>
+        /// <param name="id">ID of the course</param>
+        /// <returns>List of students (DTO class)</returns>
+        [HttpGet]
+        [Route("{id}/students")]
+        [ResponseType(typeof(List<StudentDTO>))]
+        public IHttpActionResult GetStudentsInCourse(int id)
+        {
+            try
+            {
+                return Ok(_service.GetStudentsInCourse(id));
+            }
+            catch (AppObjectNotFoundException)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
 
         /// <summary>
